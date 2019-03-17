@@ -1,0 +1,4 @@
+client/
+image.out
+log.txt
+Pipfile.lock
