@@ -12,6 +12,16 @@ var mouse = {x: 0, y: 0};
 canvas.addEventListener('mousemove', function (e) {
     mouse.x = e.pageX - this.offsetLeft;
     mouse.y = e.pageY - this.offsetTop;
+    var offsetLeft = this.offsetLeft;
+    var offsetTop = this.offsetTop;
+    document.body.onmousemove = function (e) {
+        var test_x = e.clientX - offsetLeft;
+        var test_y = e.clientY - offsetTop;
+        if (test_x < 0 || test_x > canvas.width || test_y < 0 || test_y > canvas.height) {
+            canvas.removeEventListener('mousemove', onPaint, false)
+        }
+    };
+
 }, false);
 
 /* Drawing on Paint App */
@@ -20,31 +30,28 @@ ctx.lineCap = 'round';
 ctx.lineWidth = 18;
 ctx.strokeStyle = "white";
 
-canvas.addEventListener('mousedown', function (e) {
+
+canvas.addEventListener('mousedown', function () {
     ctx.beginPath();
     ctx.moveTo(mouse.x, mouse.y);
-
     canvas.addEventListener('mousemove', onPaint, false);
 }, false);
+
 
 canvas.addEventListener('mouseup', function () {
     canvas.removeEventListener('mousemove', onPaint, false);
 }, false);
 
+
 var onPaint = function () {
-    if (mouse.x <= 280 || mouse.y <= 280) {
-        ctx.lineTo(mouse.x, mouse.y);
-        ctx.stroke();
-    }
-    else {
-
-    }
-
+    ctx.lineTo(mouse.x, mouse.y);
+    ctx.stroke();
 };
 
 
 function redraw() {
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height); // Clears the canvas
+    $("#result").html("<p align=\"center\">Draw a digit</p>");
 }
 
 function getdata() {
@@ -76,11 +83,13 @@ function getdata() {
             "array": array
         }),
         success: function (data) {
+            $("#result").html("<p align=\"center\"> Result is:" + data['digit']+ ". Confidence:" +data['confidence']+" </p>");
             console.log(data)
         }
     })
 }
 
 $("#submit").click(function () {
+    $("#result").html("<p align=\"center\">Predicting...</p>");
     getdata()
 });

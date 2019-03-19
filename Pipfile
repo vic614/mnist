@@ -11,5 +11,6 @@ numpy='*'
 tensorflow='*'
 flask='*'
 jinja2='*'
+matplotlib='*'
 [requires]
 python_version = "3.7"

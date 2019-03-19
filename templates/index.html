@@ -11,11 +11,22 @@
 <body>
 <div class="container">
     <hr>
+    <div class="container">
+        <h2 align="center">Convolutional Neural Networks - Digit Recognition</h2>
+    </div>
+    <hr>
     <div id="sketch">
         <div class="row">
             <canvas id="paint"></canvas>
         </div>
         <br>
+        <div class="row">
+             <div class="col-sm-4"></div>
+             <div class="col-sm-4" id="result">
+                 <p align="center">Draw a digit.</p>
+             </div>
+             <div class="col-sm-4"></div>
+        </div>
         <div class="row">
             <div class="col-sm-4"></div>
             <div class="col-sm-4">
@@ -24,13 +35,11 @@
                     <button class="btn btn-warning" id="clear" onclick="redraw()">Clear</button>
                 </div>
             </div>
+            <div class="col-sm-4"></div>
         </div>
     </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="/static/index.js"></script>
-<script type=text/javascript>
-    $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
-</script>
 </body>
 </html>

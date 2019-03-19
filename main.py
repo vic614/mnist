@@ -1,7 +1,6 @@
 from flask import Flask, request, make_response, render_template
 from keras import backend as K
 import numpy as np
-import matplotlib.pyplot as plt
 
 app = Flask(__name__)
 from keras.models import model_from_json
