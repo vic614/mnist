@@ -6,10 +6,8 @@ app = Flask(__name__)
 from keras.models import model_from_json
 import json
 
-model_file = open('model.json', 'r')
-model_io = model_file.read()
-model_file.close()
-
+with open('./flaskr/model_fixtures/model.json', 'r') as f:
+    model_io = f.read()
 
 @app.route('/', methods=['GET'])
 def index():
@@ -19,14 +17,16 @@ def index():
 @app.route('/predict', methods=['POST'])
 def predict():
     model = model_from_json(model_io)
-    model.load_weights('weights.h5')
-    array = json.loads(request.data)['array']
-    np_array = np.array(array)
-    new_array = []
+    model.load_weights('./model_fixtures/weights.h5')
+    # array_raw is 280 * 280 array
+    array_raw = json.loads(request.data)['array']
+    raw_array_np = np.array(array_raw)
+    # array_processed is 28 * 28 array
+    array_processed = []
     for i in range(0, 280, 10):
         for j in range(0, 280, 10):
-            new_array.append(int(np.average(np_array[i:i + 10, j:j + 10])))
-    pixels = np.array(new_array).flatten().reshape((1, 28, 28, 1))
+            array_processed.append(int(np.average(raw_array_np[i:i + 10, j:j + 10])))
+    pixels = np.array(array_processed).flatten().reshape((1, 28, 28, 1))
     respond = model.predict(pixels)[0]
     K.clear_session()
     print(respond)
