@@ -4,3 +4,4 @@ predict.py
 Pipfile
 Pipfile.lock
 .git/
+/.idea
