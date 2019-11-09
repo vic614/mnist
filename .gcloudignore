@@ -1,5 +1,6 @@
 client/
-train/
+train.py
+predict.py
 Pipfile
 Pipfile.lock
 .git/
