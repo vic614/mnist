@@ -1,8 +1,12 @@
+h5py
 keras-applications
 keras-preprocessing
 keras
-numpy
 tensorflow
+numpy
+pyyaml
+scipy
+six
 jinja2
 flask
 gunicorn
